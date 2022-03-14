@@ -1,11 +1,11 @@
 {
-  "name": "cotible",
-  "description": "set of tools to make github issues a personal notetake system",
+  "name": "cogitable",
+  "description": "Make github issues a personal notetake system",
   "version": "0.0.0-development",
   "author": "Guilherme Prokisch (https://github.com/guilhermeprokisch)",
   "license": "GNU GPL3",
   "scripts": {
-    "build": "ncc build ./src/index.ts -o dist",
+    "build": "ncc build ./src/index.js -o dist",
     "semantic-release": "semantic-release"
   },
   "bugs": {
