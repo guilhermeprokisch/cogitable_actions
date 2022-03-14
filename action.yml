@@ -1,0 +1,8 @@
+name: Cogitable
+description: "Make github issues an note taking system"
+branding:
+  icon: "gift"
+  color: orange
+runs:
+  using: "node12"
+  main: "dist/index.js"
