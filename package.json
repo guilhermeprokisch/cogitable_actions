@@ -3,10 +3,23 @@
   "description": "set of tools to make github issues a personal notetake system",
   "version": "0.0.0-development",
   "author": "Guilherme Prokisch (https://github.com/guilhermeprokisch)",
+  "license": "GNU GPL3",
+  "scripts": {},
+  "bugs": {
+    "url": "https://github.com/guilhermeprokisch/cogitable/issues"
+  },
+  "homepage": "https://github.com/guilhermeprokisch/cogitable/issues",
   "devDependencies": {
     "@commitlint/cli": "^16.2.1",
     "@commitlint/config-conventional": "^16.2.1",
     "@semantic-release/git": "^10.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@typescript-eslint/parser": "^5.15.0",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
     "husky": "^7.0.4",
     "typescript": "^4.6.2"
   }
