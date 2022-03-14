@@ -2,7 +2,7 @@
   "name": "cotible",
   "description": "set of tools to make github issues a personal notetake system",
   "version": "0.0.0-development",
-  "author": "Pierre Vanduynslager (https://github.com/pvdlg)",
+  "author": "Guilherme Prokisch (https://github.com/guilhermeprokisch)",
   "devDependencies": {
     "@commitlint/cli": "^16.2.1",
     "@commitlint/config-conventional": "^16.2.1",
