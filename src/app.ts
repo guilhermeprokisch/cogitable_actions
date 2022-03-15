@@ -1,4 +1,5 @@
 import { Probot } from 'probot'
+import { DoubleBracktsHandler } from './utils/doubleBrackts'
 
 export const app = (probot: Probot): void => {
   probot.on(
@@ -13,11 +14,32 @@ export const app = (probot: Probot): void => {
         return
       }
 
-      const issueComment = context.issue({
-        body: 'Thanks for opening this issue!'
-      })
+      let body: string
+      switch (context.name) {
+        case 'issues': {
+          // const id = context.payload.issue.id
+          body = context.payload.issue.body
+          break
+        }
+        case 'issue_comment': {
+          // const id = context.payload.comment.id
+          body = context.payload.comment.body
+          break
+        }
+      }
 
-      await context.octokit.issues.createComment(issueComment)
+      const doubleBracktsHandler = new DoubleBracktsHandler(body)
+
+      if (!doubleBracktsHandler.contains()) {
+        return
+      }
+      // const current_issue = context.payload.issue
+
+      // const issueComment = context.issue({
+      //   body: 'Thanks for opening this issue!'
+      // })
+
+      // await context.octokit.issues.createComment(issueComment)
     }
   )
 }
