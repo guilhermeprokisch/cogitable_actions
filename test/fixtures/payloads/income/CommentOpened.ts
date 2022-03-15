@@ -4,10 +4,11 @@ export const commentOpened = {
     number: 1,
     user: {
       login: 'guilhermeprokisch'
-    },
-    comment: {
-      id: 11
     }
+  },
+  comment: {
+    id: 11,
+    body: 'Comment without double brackets'
   },
   repository: {
     name: 'ideias',
