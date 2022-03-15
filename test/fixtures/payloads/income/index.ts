@@ -1,3 +1,4 @@
 export * from './IssueOpened'
 export * from './IssueOpenedByBot'
-export * from './CommentCreated'
+export * from './CommentOpened'
+export * from './CommentOpenedByBot'

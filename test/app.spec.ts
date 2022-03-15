@@ -5,7 +5,7 @@ import { privateKey } from './utils/create-mock-cert'
 import {
   issueOpened,
   issueOpenedByBot,
-  commentCreated
+  commentOpenedByBot
 } from './fixtures/payloads/income'
 import { issueCreatedBody } from './fixtures/payloads/outcome'
 
@@ -56,7 +56,7 @@ describe('Cogitable', () => {
     expect(mock.pendingMocks()).toStrictEqual([])
   })
 
-  it('Should do nothing when a issue is opened by a bot', async () => {
+  it('Should do nothing when a issue or comment is created by a bot', async () => {
     const mock = nock('https://api.github.com')
       .post('/app/installations/2/access_tokens')
       .reply(200, {
@@ -67,6 +67,7 @@ describe('Cogitable', () => {
       })
 
     await probot.receive({ name: 'issues', payload: issueOpenedByBot })
+    await probot.receive({ name: 'issues', payload: commentOpenedByBot })
 
     expect(mock.isDone()).toBeFalsy()
   })
