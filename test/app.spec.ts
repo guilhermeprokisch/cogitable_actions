@@ -1,16 +1,9 @@
 import nock from 'nock'
 import { app } from '../src/app'
 import { Probot, ProbotOctokit } from 'probot'
-// Requiring our fixtures
 import payload from './fixtures/issues.opened.json'
-import fs from 'fs'
-import path from 'path'
-const issueCreatedBody = { body: 'Thanks for opening this issue!' }
-
-const privateKey = fs.readFileSync(
-  path.join(__dirname, 'fixtures/mock-cert.pem'),
-  'utf-8'
-)
+import { privateKey } from './utils/create-mock-cert'
+import { issueCreatedBody } from './fixtures/payloads'
 
 describe('Cogitable', () => {
   let probot: any
