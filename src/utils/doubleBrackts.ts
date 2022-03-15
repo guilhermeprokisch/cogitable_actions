@@ -8,7 +8,7 @@ export class DoubleBrackts {
     this.matchs = this.body.match(this.regex)
   }
 
-  contains (): any {
+  contains (): boolean {
     return !!this.matchs
   }
 }
