@@ -2,7 +2,11 @@ import nock from 'nock'
 import { app } from '../src/app'
 import { Probot, ProbotOctokit } from 'probot'
 import { privateKey } from './utils/create-mock-cert'
-import { issueOpened } from './fixtures/payloads/income'
+import {
+  issueOpened,
+  issueOpenedByBot,
+  commentCreated
+} from './fixtures/payloads/income'
 import { issueCreatedBody } from './fixtures/payloads/outcome'
 
 describe('Cogitable', () => {
@@ -28,7 +32,7 @@ describe('Cogitable', () => {
     nock.enableNetConnect()
   })
 
-  test('creates a comment when an issue is opened', async done => {
+  it('Should creates a comment when an issue is opened', async () => {
     const mock = nock('https://api.github.com')
       .post('/app/installations/2/access_tokens')
       .reply(200, {
@@ -38,14 +42,32 @@ describe('Cogitable', () => {
         }
       })
 
-      .post('/repos/hiimbex/testing-things/issues/1/comments', (body: any) => {
-        done(expect(body).toMatchObject(issueCreatedBody))
-        return true
-      })
+      .post(
+        '/repos/guilhermeprokisch/ideias/issues/1/comments',
+        (body: any) => {
+          expect(body).toMatchObject(issueCreatedBody)
+          return true
+        }
+      )
       .reply(200)
 
     await probot.receive({ name: 'issues', payload: issueOpened })
 
     expect(mock.pendingMocks()).toStrictEqual([])
+  })
+
+  it('Should do nothing when a issue is opened by a bot', async () => {
+    const mock = nock('https://api.github.com')
+      .post('/app/installations/2/access_tokens')
+      .reply(200, {
+        token: 'test',
+        permissions: {
+          issues: 'write'
+        }
+      })
+
+    await probot.receive({ name: 'issues', payload: issueOpenedByBot })
+
+    expect(mock.isDone()).toBeFalsy()
   })
 })

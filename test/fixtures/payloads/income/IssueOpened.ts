@@ -3,14 +3,17 @@ export const issueOpened = {
   issue: {
     number: 1,
     user: {
-      login: 'hiimbex'
+      login: 'guilhermeprokisch'
     }
   },
   repository: {
-    name: 'testing-things',
+    name: 'ideias',
     owner: {
-      login: 'hiimbex'
+      login: 'guilhermeprokisch'
     }
+  },
+  sender: {
+    type: 'User'
   },
   installation: {
     id: 2

@@ -1,1 +1,3 @@
-export * from './issues.opened'
+export * from './IssueOpened'
+export * from './IssueOpenedByBot'
+export * from './CommentCreated'
