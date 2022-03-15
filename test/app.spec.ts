@@ -1,9 +1,9 @@
 import nock from 'nock'
 import { app } from '../src/app'
 import { Probot, ProbotOctokit } from 'probot'
-import payload from './fixtures/issues.opened.json'
 import { privateKey } from './utils/create-mock-cert'
-import { issueCreatedBody } from './fixtures/payloads'
+import { issueOpened } from './fixtures/payloads/income'
+import { issueCreatedBody } from './fixtures/payloads/outcome'
 
 describe('Cogitable', () => {
   let probot: any
@@ -30,7 +30,6 @@ describe('Cogitable', () => {
 
   test('creates a comment when an issue is opened', async done => {
     const mock = nock('https://api.github.com')
-      // Test that we correctly return a test token
       .post('/app/installations/2/access_tokens')
       .reply(200, {
         token: 'test',
@@ -39,25 +38,14 @@ describe('Cogitable', () => {
         }
       })
 
-      // Test that a comment is posted
       .post('/repos/hiimbex/testing-things/issues/1/comments', (body: any) => {
         done(expect(body).toMatchObject(issueCreatedBody))
         return true
       })
       .reply(200)
 
-    // Receive a webhook event
-    await probot.receive({ name: 'issues', payload })
+    await probot.receive({ name: 'issues', payload: issueOpened })
 
     expect(mock.pendingMocks()).toStrictEqual([])
   })
 })
-
-// For more information about testing with Jest see:
-// https://facebook.github.io/jest/
-
-// For more information about using TypeScript in your tests, Jest recommends:
-// https://github.com/kulshekhar/ts-jest
-
-// For more information about testing with Nock see:
-// https://github.com/nock/nock
