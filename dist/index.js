@@ -11518,7 +11518,7 @@ exports.BaseBackend = BaseBackend;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 /* eslint-disable max-lines */
 var hub_1 = __nccwpck_require__(6393);
 var utils_1 = __nccwpck_require__(1620);
@@ -12100,7 +12100,7 @@ exports.Integrations = Integrations;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var hub_1 = __nccwpck_require__(6393);
 var utils_1 = __nccwpck_require__(1620);
 exports.installedIntegrations = [];
@@ -12217,7 +12217,7 @@ exports.FunctionToString = FunctionToString;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var hub_1 = __nccwpck_require__(6393);
 var utils_1 = __nccwpck_require__(1620);
 // "Script error." is hard coded into browsers for errors that it can't read.
@@ -12421,7 +12421,7 @@ exports.InboundFilters = inboundfilters_1.InboundFilters;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var utils_1 = __nccwpck_require__(1620);
 var api_1 = __nccwpck_require__(90785);
 /** Extract sdk info from from the API metadata */
@@ -12628,7 +12628,7 @@ exports.SDK_VERSION = '6.18.2';
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var utils_1 = __nccwpck_require__(1620);
 var scope_1 = __nccwpck_require__(4213);
 var session_1 = __nccwpck_require__(12474);
@@ -13186,7 +13186,7 @@ exports.setHubOnCarrier = hub_1.setHubOnCarrier;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var utils_1 = __nccwpck_require__(1620);
 /**
  * Absolute maximum number of breadcrumbs added to an event.
@@ -13872,7 +13872,7 @@ exports.SessionFlusher = SessionFlusher;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var hub_1 = __nccwpck_require__(6393);
 /**
  * This calls a function on the current hub.
@@ -14087,7 +14087,7 @@ exports.startTransaction = startTransaction;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var core_1 = __nccwpck_require__(79212);
 var types_1 = __nccwpck_require__(83789);
 var utils_1 = __nccwpck_require__(1620);
@@ -14145,7 +14145,7 @@ exports.NodeBackend = NodeBackend;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var core_1 = __nccwpck_require__(79212);
 var hub_1 = __nccwpck_require__(6393);
 var utils_1 = __nccwpck_require__(1620);
@@ -14273,7 +14273,7 @@ exports.NodeClient = NodeClient;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var hub_1 = __nccwpck_require__(6393);
 var types_1 = __nccwpck_require__(83789);
 var utils_1 = __nccwpck_require__(1620);
@@ -14369,7 +14369,7 @@ exports.eventFromMessage = eventFromMessage;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 /* eslint-disable max-lines */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 var core_1 = __nccwpck_require__(79212);
@@ -14755,7 +14755,7 @@ exports.errorHandler = errorHandler;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var types_1 = __nccwpck_require__(83789);
 exports.Severity = types_1.Severity;
 var core_1 = __nccwpck_require__(79212);
@@ -14820,7 +14820,7 @@ if (carrier.__SENTRY__) {
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var core_1 = __nccwpck_require__(79212);
 var utils_1 = __nccwpck_require__(1620);
 var util = __nccwpck_require__(73837);
@@ -14889,7 +14889,7 @@ function createConsoleWrapper(level) {
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var core_1 = __nccwpck_require__(79212);
 var utils_1 = __nccwpck_require__(1620);
 var fs_1 = __nccwpck_require__(57147);
@@ -15082,7 +15082,7 @@ function readSourceFiles(filenames) {
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var core_1 = __nccwpck_require__(79212);
 var utils_1 = __nccwpck_require__(1620);
 var http_1 = __nccwpck_require__(84103);
@@ -15254,7 +15254,7 @@ exports.ContextLines = contextlines_1.ContextLines;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var core_1 = __nccwpck_require__(79212);
 var utils_1 = __nccwpck_require__(1620);
 var eventbuilder_1 = __nccwpck_require__(79287);
@@ -15341,7 +15341,7 @@ exports.LinkedErrors = LinkedErrors;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var fs_1 = __nccwpck_require__(57147);
 var path_1 = __nccwpck_require__(71017);
 var moduleCache;
@@ -15685,7 +15685,7 @@ exports.logAndExitProcess = logAndExitProcess;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var core_1 = __nccwpck_require__(79212);
 var utils_1 = __nccwpck_require__(1620);
 var url_1 = __nccwpck_require__(57310);
@@ -15847,7 +15847,7 @@ exports.normalizeRequestArgs = normalizeRequestArgs;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var core_1 = __nccwpck_require__(79212);
 var hub_1 = __nccwpck_require__(6393);
 var utils_1 = __nccwpck_require__(1620);
@@ -16191,7 +16191,7 @@ exports.nodeStackParser = [90, node];
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var core_1 = __nccwpck_require__(79212);
 var utils_1 = __nccwpck_require__(1620);
 var fs = __nccwpck_require__(57147);
@@ -16429,7 +16429,7 @@ exports.BaseTransport = BaseTransport;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var core_1 = __nccwpck_require__(79212);
 var http = __nccwpck_require__(13685);
 var base_1 = __nccwpck_require__(41194);
@@ -16470,7 +16470,7 @@ exports.HTTPTransport = HTTPTransport;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var core_1 = __nccwpck_require__(79212);
 var https = __nccwpck_require__(95687);
 var base_1 = __nccwpck_require__(41194);
@@ -16525,7 +16525,7 @@ exports.HTTPSTransport = https_1.HTTPSTransport;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var fs = __nccwpck_require__(57147);
 var path = __nccwpck_require__(71017);
 /**
@@ -16780,7 +16780,7 @@ exports.createClientReportEnvelope = createClientReportEnvelope;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var env_1 = __nccwpck_require__(31913);
 var error_1 = __nccwpck_require__(66238);
 /** Regular expression used to parse a Dsn. */
@@ -16923,7 +16923,7 @@ exports.isBrowserBundle = isBrowserBundle;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var is_1 = __nccwpck_require__(92757);
 /**
  * Creates an envelope.
@@ -16972,7 +16972,7 @@ exports.serializeEnvelope = serializeEnvelope;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var polyfill_1 = __nccwpck_require__(1243);
 /** An error emitted by Sentry SDKs and related utilities. */
 var SentryError = /** @class */ (function (_super) {
@@ -17025,7 +17025,7 @@ exports.getGlobalObject = getGlobalObject;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 tslib_1.__exportStar(__nccwpck_require__(58343), exports);
 tslib_1.__exportStar(__nccwpck_require__(30597), exports);
 tslib_1.__exportStar(__nccwpck_require__(3275), exports);
@@ -17061,7 +17061,7 @@ tslib_1.__exportStar(__nccwpck_require__(69377), exports);
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var env_1 = __nccwpck_require__(31913);
 var global_1 = __nccwpck_require__(68813);
 var is_1 = __nccwpck_require__(92757);
@@ -17762,7 +17762,7 @@ exports.isInstanceOf = isInstanceOf;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var global_1 = __nccwpck_require__(68813);
 // TODO: Implement different loggers for different environments
 var global = global_1.getGlobalObject();
@@ -17921,7 +17921,7 @@ exports.memoBuilder = memoBuilder;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var global_1 = __nccwpck_require__(68813);
 var object_1 = __nccwpck_require__(69249);
 var string_1 = __nccwpck_require__(66538);
@@ -18215,7 +18215,7 @@ exports.loadModule = loadModule;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var browser_1 = __nccwpck_require__(30597);
 var is_1 = __nccwpck_require__(92757);
 var memo_1 = __nccwpck_require__(49515);
@@ -18946,7 +18946,7 @@ exports.makePromiseBuffer = makePromiseBuffer;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 exports.DEFAULT_RETRY_AFTER = 60 * 1000; // 60 seconds
 /**
  * Extracts Retry-After value from the request header or returns default value
@@ -19083,7 +19083,7 @@ exports.severityFromString = severityFromString;
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __nccwpck_require__(89679);
+var tslib_1 = __nccwpck_require__(4351);
 var STACKTRACE_LIMIT = 50;
 /**
  * Creates a stack parser with the supplied line parsers
@@ -96128,7 +96128,7 @@ module.exports.PROCESSING_OPTIONS = PROCESSING_OPTIONS;
 
 /***/ }),
 
-/***/ 89679:
+/***/ 4351:
 /***/ ((module) => {
 
 /*! *****************************************************************************
@@ -100469,126 +100469,6 @@ try {
 
 /***/ }),
 
-/***/ 27751:
-/***/ ((module) => {
-
-/**
- * @param {import('probot').Probot} app
- */
-module.exports = app => {
-  app.on(
-    [
-      'issues.created',
-      'issue_comment.created',
-      'issue_comment.edited',
-      'issues.edited'
-    ],
-    async context => {
-      app.log(context.name)
-      if (context.isBot && context.name === 'issue_comment') {
-        return
-      }
-
-      if (context.name === 'issues') {
-        const id = context.payload.issue.id
-        const body = context.payload.issue.body
-      } else {
-        const body = context.payload.comment.body
-        const id = context.payload.comment.id
-      }
-
-      const reg = /\[\[(.+?)\]\]/g
-      const links = []
-      const owner = context.repo().owner
-      const repo = context.repo().repo
-      const onwerRepo = owner + '/' + repo
-
-      if (context.name === 'issues') {
-        const currentIssue = context.payload.issue
-      } else {
-        const currentIssue = await context.github.issues.get(
-          context.repo({
-            issue_number: context.issue().number
-          })
-        )
-        currentIssue = currentIssue.data
-      }
-
-      if (body.match(/\[\[(.+?)\]\]/g)) {
-        let match
-        while ((match = reg.exec(body)) !== null) {
-          const link = match[1]
-          context.github.search
-          const results = await context.github.search.issuesAndPullRequests(
-            context.repo({
-              q: link + `repo:${onwerRepo}`,
-              order: 'asc',
-              per_page: 1
-            })
-          )
-          const items = results.data.items
-          app.log(typeof items[0] !== 'undefined')
-          if (typeof items !== 'undefined' && typeof items[0] !== 'undefined') {
-            const resultNumber = items[0].number
-            const resultTitle = items[0].title
-          } else {
-            const resultTitle = null
-          }
-          let link_number
-          if (link === resultTitle) {
-            link_number = resultNumber
-          } else {
-            let new_issue = await context.github.issues.create(
-              context.repo({
-                title: link,
-                body: ' '
-              })
-            )
-            link_number = new_issue.data.number
-          }
-          links.push([link, link_number])
-        }
-      } else {
-        app.log('No Matchs')
-      }
-      links.forEach(
-        link =>
-          (body = body.replace(`[[${link[0]}]]`, `[${link[0]}](${link[1]})`))
-      )
-
-      links.forEach(link =>
-        context.github.issues.createComment(
-          context.repo({
-            issue_number: link[1],
-            body:
-              `Mentioned in [${current_issue.title}](${current_issue.number}#issuecomment-${id})  \n > ` +
-              body
-          })
-        )
-      )
-
-      if (context.name === 'issues') {
-        await context.github.issues.update(
-          context.repo({
-            issue_number: current_issue.number,
-            body: body
-          })
-        )
-      } else {
-        await context.github.issues.updateComment(
-          context.repo({
-            comment_id: id,
-            body: body
-          })
-        )
-      }
-    }
-  )
-}
-
-
-/***/ }),
-
 /***/ 22877:
 /***/ ((module) => {
 
@@ -102222,6 +102102,46 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__nccwpck_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__nccwpck_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__nccwpck_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__nccwpck_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
 /******/ 		__nccwpck_require__.nmd = (module) => {
@@ -102237,12 +102157,38 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
-const { run } = __nccwpck_require__(93159);
-const app = __nccwpck_require__(27751);
+"use strict";
+// ESM COMPAT FLAG
+__nccwpck_require__.r(__webpack_exports__);
 
-run(app);
+// EXTERNAL MODULE: ./node_modules/@probot/adapter-github-actions/index.js
+var adapter_github_actions = __nccwpck_require__(93159);
+var adapter_github_actions_default = /*#__PURE__*/__nccwpck_require__.n(adapter_github_actions);
+;// CONCATENATED MODULE: ./src/app.ts
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+const app = (probot) => {
+    probot.on('issues.opened', (context) => __awaiter(void 0, void 0, void 0, function* () {
+        const issueComment = context.issue({
+            body: 'Thanks for opening this issue!'
+        });
+        yield context.octokit.issues.createComment(issueComment);
+    }));
+};
+
+;// CONCATENATED MODULE: ./src/index.ts
+
+
+adapter_github_actions_default().run(app);
 
 })();
 
