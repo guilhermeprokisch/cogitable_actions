@@ -1,4 +1,4 @@
-import { DoubleBrackts } from './doubleBrackts'
+import { DoubleBracktsHandler } from './doubleBrackts'
 
 const negativeCases = [
   { value: 'Test of body without brackts', expected: false },
@@ -16,8 +16,8 @@ describe('DoubleBrackts', () => {
   it.each(negativeCases)(
     'Should contains method return false if there is not double brackets',
     ({ value, expected }) => {
-      const doubleBrackts = new DoubleBrackts(value)
-      const itContains = doubleBrackts.contains()
+      const sut = new DoubleBracktsHandler(value)
+      const itContains = sut.contains()
       expect(itContains).toBe(expected)
     }
   )
@@ -25,8 +25,8 @@ describe('DoubleBrackts', () => {
   it.each(positiveCases)(
     'Should contains method return true if there is double brackets',
     ({ value, expected }) => {
-      const doubleBrackts = new DoubleBrackts(value)
-      const itContains = doubleBrackts.contains()
+      const sut = new DoubleBracktsHandler(value)
+      const itContains = sut.contains()
       expect(itContains).toBe(expected)
     }
   )

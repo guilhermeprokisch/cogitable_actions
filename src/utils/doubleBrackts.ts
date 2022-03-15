@@ -1,4 +1,4 @@
-export class DoubleBrackts {
+export class DoubleBracktsHandler {
   regex = /\[\[(.+?)\]\]/g
   body: string
   matchs: string[]
