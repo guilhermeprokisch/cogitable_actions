@@ -10,7 +10,7 @@ export const app = (probot: Probot): void => {
     ],
     async context => {
       if (context.payload.sender.type === 'Bot') {
-        return Promise.resolve()
+        return
       }
 
       const issueComment = context.issue({
