@@ -5,6 +5,8 @@
   "author": "Guilherme Prokisch (https://github.com/guilhermeprokisch)",
   "license": "GNU GPL3",
   "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
     "build": "ncc build ./src/index.ts -o dist",
     "semantic-release": "semantic-release"
   },
