@@ -7,9 +7,21 @@ const negativeCases = [
 ]
 
 const positiveCases = [
-  { value: 'Test of string [[with]] double brackets', expected: true },
-  { value: '[[One more]] test', expected: true },
-  { value: '[[Brackts]] again test [[Second]]', expected: true }
+  {
+    value: 'Test of string [[with]] double brackets',
+    bracketsExtected: ['with'],
+    expected: true
+  },
+  {
+    value: '[[One more]] test',
+    bracketsExtected: ['One more'],
+    expected: true
+  },
+  {
+    value: '[[Brackts]] again test [[Second]]',
+    bracketsExtected: ['Brackts', 'Second'],
+    expected: true
+  }
 ]
 
 describe('DoubleBrackts', () => {
@@ -28,6 +40,15 @@ describe('DoubleBrackts', () => {
       const sut = new DoubleBracktsHandler(value)
       const itContains = sut.contains()
       expect(itContains).toBe(expected)
+    }
+  )
+
+  it.each(positiveCases)(
+    'Should returns a list of extracted double brackets',
+    ({ value, bracketsExtected }) => {
+      const sut = new DoubleBracktsHandler(value)
+      const itContains = sut.extract()
+      expect(itContains).toStrictEqual(bracketsExtected)
     }
   )
 })

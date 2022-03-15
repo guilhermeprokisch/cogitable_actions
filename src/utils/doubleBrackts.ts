@@ -5,10 +5,16 @@ export class DoubleBracktsHandler {
 
   constructor (body: string) {
     this.body = body
-    this.matchs = this.body.match(this.regex)
+    this.matchs = this.body
+      .match(this.regex)
+      ?.map(match => match.replace('[[', '').replace(']]', ''))
   }
 
   contains (): boolean {
     return !!this.matchs
+  }
+
+  extract (): string[] {
+    return this.matchs ? this.matchs : []
   }
 }
