@@ -4,11 +4,12 @@ import { Probot, ProbotOctokit } from 'probot'
 import { privateKey } from './utils/create-mock-cert'
 import {
   issueOpened,
+  issueOpenedWithoutBrackts,
   issueOpenedByBot,
   commentOpened,
+  commentOpenedWithoutBrackts,
   commentOpenedByBot
 } from './fixtures/payloads/income'
-import { issueCreatedBody } from './fixtures/payloads/outcome'
 
 describe('Cogitable', () => {
   let probot: any
@@ -26,11 +27,6 @@ describe('Cogitable', () => {
     })
     // Load our app into probot
     probot.load(app)
-  })
-
-  afterEach(() => {
-    nock.cleanAll()
-    nock.enableNetConnect()
   })
 
   // it('Should creates a comment when an issue is opened', async () => {
@@ -69,7 +65,7 @@ describe('Cogitable', () => {
 
     await probot.receive({ name: 'issues', payload: issueOpenedByBot })
     await probot.receive({
-      name: 'issues_comment',
+      name: 'issue_comment',
       payload: commentOpenedByBot
     })
 
@@ -86,9 +82,89 @@ describe('Cogitable', () => {
         }
       })
 
-    // await probot.receive({ name: 'issues', payload: issueOpened })
-    await probot.receive({ name: 'issues_comment', payload: commentOpened })
+    await probot.receive({
+      name: 'issues',
+      payload: issueOpenedWithoutBrackts
+    })
+    await probot.receive({
+      name: 'issue_comment',
+      payload: commentOpenedWithoutBrackts
+    })
 
     expect(mock.isDone()).toBeFalsy()
+  })
+
+  it('Should search on repository for all brackts terms for issue', async () => {
+    const mock = nock('https://api.github.com')
+      .persist()
+      .post('/app/installations/2/access_tokens')
+      .reply(200, {
+        token: 'test',
+        permissions: {
+          issues: 'write'
+        }
+      })
+      .get('/search/issues')
+      .query({
+        owner: 'guilhermeprokisch',
+        repo: 'ideias',
+        q: 'doublerepo:guilhermeprokisch',
+        order: 'asc',
+        per_page: 1
+      })
+      .reply(200)
+      .get('/search/issues')
+      .query({
+        owner: 'guilhermeprokisch',
+        repo: 'ideias',
+        q: 'bracketsrepo:guilhermeprokisch',
+        order: 'asc',
+        per_page: 1
+      })
+      .reply(200)
+
+    await probot.receive({ name: 'issues', payload: issueOpened })
+
+    expect(mock.pendingMocks()).toStrictEqual([])
+  })
+
+  it('Should search on repository for all brackts terms for comment', async () => {
+    const mock = nock('https://api.github.com')
+      .persist()
+      .post('/app/installations/2/access_tokens')
+      .reply(200, {
+        token: 'test',
+        permissions: {
+          issues: 'write'
+        }
+      })
+      .get('/search/issues')
+      .query({
+        owner: 'guilhermeprokisch',
+        repo: 'ideias',
+        q: 'doublerepo:guilhermeprokisch',
+        order: 'asc',
+        per_page: 1
+      })
+      .reply(200)
+      .get('/search/issues')
+      .query({
+        owner: 'guilhermeprokisch',
+        repo: 'ideias',
+        q: 'Commentrepo:guilhermeprokisch',
+        order: 'asc',
+        per_page: 1
+      })
+      .reply(200)
+
+    await probot.receive({
+      name: 'issue_comment',
+      payload: commentOpened
+    })
+    expect(mock.pendingMocks()).toStrictEqual([])
+  })
+  afterEach(() => {
+    nock.cleanAll()
+    nock.enableNetConnect()
   })
 })
