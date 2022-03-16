@@ -39,18 +39,20 @@ export const app = (probot: Probot): void => {
       if (context.payload.sender.type === 'Bot') {
         return
       }
-
       // there's a issue here with protobot types
       // @ts-ignore
       const body = context.payload.comment ? context.payload.comment.body : context.payload.issue.body
 
       const doubleBracktsHandler = new DoubleBracktsHandler(body)
+
       if (!doubleBracktsHandler.contains()) {
         return
       }
 
       const bracketTerms = doubleBracktsHandler.extract()
       const searchResults = await new BrackTermsSearch(bracketTerms, context).search()
+
+      console.log(searchResults)
 
       // const current_issue = context.payload.issue
 

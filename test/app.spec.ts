@@ -18,6 +18,13 @@ import {
   anyTerm2PayloadIssue
 } from './fixtures/payloads/outcome'
 
+import {
+  anyTermIssueResponse,
+  anyTerm2IssueResponse,
+  anyTermCommentResponse,
+  anyTerm2CommentResponse
+} from './fixtures/payloads/income/searchResults'
+
 describe('Cogitable', () => {
   let probot: any
 
@@ -118,10 +125,10 @@ describe('Cogitable', () => {
       })
       .get('/search/issues')
       .query(anyTermPayloadIssue)
-      .reply(200)
+      .reply(200, JSON.stringify(anyTermIssueResponse))
       .get('/search/issues')
       .query(anyTerm2PayloadIssue)
-      .reply(200)
+      .reply(200, JSON.stringify(anyTerm2IssueResponse))
 
     await probot.receive({ name: 'issues', payload: issueOpened })
 
@@ -140,10 +147,10 @@ describe('Cogitable', () => {
       })
       .get('/search/issues')
       .query(anyTermPayloadComment)
-      .reply(200)
+      .reply(200, JSON.stringify(anyTermCommentResponse))
       .get('/search/issues')
       .query(anyTerm2PayloadComment)
-      .reply(200)
+      .reply(200, JSON.stringify(anyTerm2CommentResponse))
 
     await probot.receive({
       name: 'issue_comment',
