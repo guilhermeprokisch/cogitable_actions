@@ -11,6 +11,13 @@ import {
   commentOpenedByBot
 } from './fixtures/payloads/income'
 
+import {
+  anyTermPayloadComment,
+  anyTerm2PayloadComment,
+  anyTermPayloadIssue,
+  anyTerm2PayloadIssue
+} from './fixtures/payloads/outcome'
+
 describe('Cogitable', () => {
   let probot: any
 
@@ -27,6 +34,11 @@ describe('Cogitable', () => {
     })
     // Load our app into probot
     probot.load(app)
+  })
+
+  afterEach(() => {
+    nock.cleanAll()
+    nock.enableNetConnect()
   })
 
   // it('Should creates a comment when an issue is opened', async () => {
@@ -105,22 +117,10 @@ describe('Cogitable', () => {
         }
       })
       .get('/search/issues')
-      .query({
-        owner: 'guilhermeprokisch',
-        repo: 'ideias',
-        q: 'doublerepo:guilhermeprokisch',
-        order: 'asc',
-        per_page: 1
-      })
+      .query(anyTermPayloadIssue)
       .reply(200)
       .get('/search/issues')
-      .query({
-        owner: 'guilhermeprokisch',
-        repo: 'ideias',
-        q: 'bracketsrepo:guilhermeprokisch',
-        order: 'asc',
-        per_page: 1
-      })
+      .query(anyTerm2PayloadIssue)
       .reply(200)
 
     await probot.receive({ name: 'issues', payload: issueOpened })
@@ -139,22 +139,10 @@ describe('Cogitable', () => {
         }
       })
       .get('/search/issues')
-      .query({
-        owner: 'guilhermeprokisch',
-        repo: 'ideias',
-        q: 'doublerepo:guilhermeprokisch',
-        order: 'asc',
-        per_page: 1
-      })
+      .query(anyTermPayloadComment)
       .reply(200)
       .get('/search/issues')
-      .query({
-        owner: 'guilhermeprokisch',
-        repo: 'ideias',
-        q: 'Commentrepo:guilhermeprokisch',
-        order: 'asc',
-        per_page: 1
-      })
+      .query(anyTerm2PayloadComment)
       .reply(200)
 
     await probot.receive({
@@ -162,9 +150,5 @@ describe('Cogitable', () => {
       payload: commentOpened
     })
     expect(mock.pendingMocks()).toStrictEqual([])
-  })
-  afterEach(() => {
-    nock.cleanAll()
-    nock.enableNetConnect()
   })
 })

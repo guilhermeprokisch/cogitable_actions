@@ -2,7 +2,7 @@ export const issueOpened = {
   action: 'opened',
   issue: {
     number: 1,
-    body: 'Issue with [[double]] [[brackets]]',
+    body: 'Issue with [[any_term_issue]] [[any_term_issue2]]',
     user: {
       login: 'guilhermeprokisch'
     }

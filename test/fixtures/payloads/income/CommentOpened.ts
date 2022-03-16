@@ -8,7 +8,7 @@ export const commentOpened = {
   },
   comment: {
     id: 11,
-    body: '[[Comment]] with [[double]] brackets'
+    body: 'Comment with [[any_term_comment]] [[any_term_comment2]]'
   },
   repository: {
     name: 'ideias',

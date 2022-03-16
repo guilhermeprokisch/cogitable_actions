@@ -1,1 +1,1 @@
-export const issueCreatedBody = { body: 'Thanks for opening this issue!' }
+export * from './payloadBracketsComments'
