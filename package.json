@@ -61,6 +61,8 @@
   },
   "dependencies": {
     "@probot/adapter-github-actions": "^3.1.1",
+    "@types/lodash": "^4.14.180",
+    "lodash": "^4.17.21",
     "probot": "^12.2.2"
   }
 }

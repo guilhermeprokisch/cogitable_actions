@@ -1,4 +1,5 @@
 import { Probot } from 'probot'
+import _ from 'lodash'
 import { DoubleBracktsHandler } from './utils/doubleBrackts'
 
 class BrackTermsSearch {
@@ -21,8 +22,19 @@ class BrackTermsSearch {
     return results
   }
 
+  private parseResult (term:any, rawResult:any):any {
+    // console.log(rawResult.data.items[0])
+
+    return {
+      term: term,
+      number: rawResult.data.items[0] ? rawResult.data.items[0].number : null,
+      title: rawResult.data.items[0] ? rawResult.data.items[0].title : null
+    }
+  }
+
   async search () {
-    return await Promise.all(this.terms.map(async (term) => await this.searchTerm(term)))
+    const rawResult = await Promise.all(this.terms.map(async (term) => await this.searchTerm(term)))
+    return rawResult.map((result, index) => this.parseResult(this.terms[index], result))
   }
 }
 
@@ -52,7 +64,7 @@ export const app = (probot: Probot): void => {
       const bracketTerms = doubleBracktsHandler.extract()
       const searchResults = await new BrackTermsSearch(bracketTerms, context).search()
 
-      console.log(searchResults)
+      // console.log(searchResults)
 
       // const current_issue = context.payload.issue
 
