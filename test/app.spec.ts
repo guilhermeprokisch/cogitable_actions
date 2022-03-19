@@ -125,10 +125,10 @@ describe('Cogitable', () => {
       })
       .get('/search/issues')
       .query(anyTermPayloadIssue)
-      .reply(200, JSON.stringify(anyTermIssueResponse))
+      .reply(200, anyTermIssueResponse)
       .get('/search/issues')
       .query(anyTerm2PayloadIssue)
-      .reply(200, JSON.stringify(anyTerm2IssueResponse))
+      .reply(200, anyTerm2IssueResponse)
 
     await probot.receive({ name: 'issues', payload: issueOpened })
 
@@ -147,10 +147,10 @@ describe('Cogitable', () => {
       })
       .get('/search/issues')
       .query(anyTermPayloadComment)
-      .reply(200, JSON.stringify(anyTermCommentResponse))
+      .reply(200, anyTermCommentResponse)
       .get('/search/issues')
       .query(anyTerm2PayloadComment)
-      .reply(200, JSON.stringify(anyTerm2CommentResponse))
+      .reply(200, anyTerm2CommentResponse)
 
     await probot.receive({
       name: 'issue_comment',

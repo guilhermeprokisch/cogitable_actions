@@ -4,7 +4,7 @@ export const anyTermIssueResponse = {
   items: [
     {
       number: 111,
-      title: 'any_term_issue'
+      title: 'any_term_issue_title'
     }
   ]
 }
@@ -21,7 +21,7 @@ export const anyTermCommentResponse = {
   items: [
     {
       number: 222,
-      title: 'any_term_issue'
+      title: 'any_term_issue_title'
     }
   ]
 }
