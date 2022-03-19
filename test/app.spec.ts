@@ -158,4 +158,28 @@ describe('Cogitable', () => {
     })
     expect(mock.pendingMocks()).toStrictEqual([])
   })
+
+  // it('Should create new issues for all brackterms with null results', async () => {
+  //   const mock = nock('https://api.github.com')
+  //     .persist()
+  //     .post('/app/installations/2/access_tokens')
+  //     .reply(200, {
+  //       token: 'test',
+  //       permissions: {
+  //         issues: 'write'
+  //       }
+  //     })
+  //     .get('/search/issues')
+  //     .query(anyTermPayloadComment)
+  //     .reply(200, anyTermCommentResponse)
+  //     .get('/search/issues')
+  //     .query(anyTerm2PayloadComment)
+  //     .reply(200, anyTerm2CommentResponse)
+
+  //   await probot.receive({
+  //     name: 'issue_comment',
+  //     payload: commentOpened
+  //   })
+  //   expect(mock.pendingMocks()).toStrictEqual([])
+  // })
 })

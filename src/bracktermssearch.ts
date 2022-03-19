@@ -1,3 +1,6 @@
+
+import { SearchResult } from './types'
+
 export class BrackTermsSearch {
   terms: string[]
   context: any
@@ -18,9 +21,7 @@ export class BrackTermsSearch {
     return results
   }
 
-  private parseResult (term:any, rawResult:any):any {
-    // console.log(rawResult.data.items[0])
-
+  private parseResult (term:string, rawResult:any): SearchResult {
     return {
       term: term,
       number: rawResult.data.items[0] ? rawResult.data.items[0].number : null,

@@ -1,5 +1,4 @@
 import { Probot } from 'probot'
-import _ from 'lodash'
 import { DoubleBracktsHandler } from './utils/doubleBrackts'
 import { BrackTermsSearch } from './bracktermssearch'
 
@@ -34,6 +33,8 @@ export const app = (probot: Probot): void => {
         bracketTerms,
         context
       ).search()
+
+      // new IssueCreator(seakrchResults).create()
 
       // console.log(searchResults)
 
