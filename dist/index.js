@@ -102166,7 +102166,24 @@ __nccwpck_require__.r(__webpack_exports__);
 // EXTERNAL MODULE: ./node_modules/@probot/adapter-github-actions/index.js
 var adapter_github_actions = __nccwpck_require__(93159);
 var adapter_github_actions_default = /*#__PURE__*/__nccwpck_require__.n(adapter_github_actions);
-;// CONCATENATED MODULE: ./src/app.ts
+;// CONCATENATED MODULE: ./src/utils/doubleBrackts.ts
+class DoubleBracktsHandler {
+    constructor(body) {
+        var _a;
+        this.regex = /\[\[(.+?)\]\]/g;
+        this.body = body;
+        this.matchs = (_a = this.body
+            .match(this.regex)) === null || _a === void 0 ? void 0 : _a.map(match => match.replace('[[', '').replace(']]', ''));
+    }
+    contains() {
+        return !!this.matchs;
+    }
+    extract() {
+        return this.matchs ? this.matchs : [];
+    }
+}
+
+;// CONCATENATED MODULE: ./src/bracktermssearch.ts
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -102176,12 +102193,102 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const app = (probot) => {
-    probot.on('issues.opened', (context) => __awaiter(void 0, void 0, void 0, function* () {
-        const issueComment = context.issue({
-            body: 'Thanks for opening this issue!'
+class BrackTermsSearch {
+    constructor(terms, context) {
+        this.terms = terms;
+        this.context = context;
+    }
+    searchTerm(term) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const results = yield this.context.octokit.search.issuesAndPullRequests(this.context.repo({
+                q: term,
+                order: 'asc',
+                per_page: 1
+            }));
+            return results;
         });
-        yield context.octokit.issues.createComment(issueComment);
+    }
+    parseResult(term, rawResult) {
+        return {
+            term: term,
+            number: rawResult.data.items[0] ? rawResult.data.items[0].number : null,
+            title: rawResult.data.items[0] ? rawResult.data.items[0].title : null
+        };
+    }
+    search() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const rawResult = yield Promise.all(this.terms.map((term) => __awaiter(this, void 0, void 0, function* () { return yield this.searchTerm(term); })));
+            return rawResult.map((result, index) => this.parseResult(this.terms[index], result));
+        });
+    }
+}
+
+;// CONCATENATED MODULE: ./src/app.ts
+var app_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+class IssueCreator {
+    constructor(searchResults, context) {
+        this.searchResults = searchResults;
+        this.context = context;
+    }
+    createNewIssue(result) {
+        return app_awaiter(this, void 0, void 0, function* () {
+            if (result.number) {
+                return result;
+            }
+            const newIssue = yield this.context.octokit.issues.create(this.context.repo({
+                title: 'Testo',
+                body: ' '
+            }));
+            result.number = newIssue.data.number;
+            result.title = newIssue.data.title;
+            return result;
+        });
+    }
+    create() {
+        return app_awaiter(this, void 0, void 0, function* () {
+            return yield Promise.all(this.searchResults.map((result) => app_awaiter(this, void 0, void 0, function* () { return yield this.createNewIssue(result); })));
+        });
+    }
+}
+const app = (probot) => {
+    probot.on([
+        'issues.opened',
+        'issues.edited',
+        'issue_comment',
+        'issue_comment.created',
+        'issue_comment.edited'
+    ], (context) => app_awaiter(void 0, void 0, void 0, function* () {
+        if (context.payload.sender.type === 'Bot') {
+            return;
+        }
+        // ts-ingore due a issue with protobot types
+        // @ts-ignore
+        const body = context.payload.comment // @ts-ignore
+            ? context.payload.comment.body
+            : context.payload.issue.body;
+        const doubleBracktsHandler = new DoubleBracktsHandler(body);
+        if (!doubleBracktsHandler.contains()) {
+            return;
+        }
+        const bracketTerms = doubleBracktsHandler.extract();
+        const searchResults = yield new BrackTermsSearch(bracketTerms, context).search();
+        new IssueCreator(searchResults, context).create();
+        // console.log(searchResults2)
+        // const current_issue = context.payload.issue
+        // const issueComment = context.issue({
+        //   body: 'Thanks for opening this issue!'
+        // })
+        // await context.octokit.issues.createComment(issueComment)
     }));
 };
 
