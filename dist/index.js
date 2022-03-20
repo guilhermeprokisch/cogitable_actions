@@ -102246,7 +102246,7 @@ class IssueCreator {
                 return result;
             }
             const newIssue = yield this.context.octokit.issues.create(this.context.repo({
-                title: 'Testo',
+                title: 'Testoo',
                 body: ' '
             }));
             result.number = newIssue.data.number;
