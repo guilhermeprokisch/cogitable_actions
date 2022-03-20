@@ -13,7 +13,7 @@ export class BrackTermsSearch {
   private async searchTerm (term: string): Promise<any> {
     const results = await this.context.octokit.search.issuesAndPullRequests(
       this.context.repo({
-        q: term + `repo:${this.context.repo().owner}`,
+        q: term,
         order: 'asc',
         per_page: 1
       })

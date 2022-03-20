@@ -175,6 +175,8 @@ describe('Cogitable', () => {
   //     .get('/search/issues')
   //     .query(anyTerm2PayloadComment)
   //     .reply(200, anyTerm2CommentResponse)
+  //     .post('/repos/guilhermeprokisch/ideias/issues')
+  //     .reply(200, { data: { number: 1, title: 'tt' } })
 
   //   await probot.receive({
   //     name: 'issue_comment',

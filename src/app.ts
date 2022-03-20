@@ -1,6 +1,36 @@
 import { Probot } from 'probot'
 import { DoubleBracktsHandler } from './utils/doubleBrackts'
 import { BrackTermsSearch } from './bracktermssearch'
+import { SearchResult } from './types'
+
+class IssueCreator {
+  searchResults: SearchResult[]
+  context: any
+
+  constructor (searchResults: SearchResult[], context: any) {
+    this.searchResults = searchResults
+    this.context = context
+  }
+
+  private async createNewIssue (result: SearchResult) {
+    if (result.number) {
+      return result
+    }
+    const newIssue = await this.context.octokit.issues.create(
+      this.context.repo({
+        title: 'Teste',
+        body: ' '
+      })
+    )
+    result.number = newIssue.data.number
+    result.title = newIssue.data.title
+    return result
+  }
+
+  async create (): Promise<SearchResult[]> {
+    return await Promise.all(this.searchResults.map(async (result) => await this.createNewIssue(result)))
+  }
+}
 
 export const app = (probot: Probot): void => {
   probot.on(
@@ -28,15 +58,15 @@ export const app = (probot: Probot): void => {
         return
       }
 
+    
       const bracketTerms = doubleBracktsHandler.extract()
       const searchResults = await new BrackTermsSearch(
         bracketTerms,
         context
       ).search()
 
-      // new IssueCreator(seakrchResults).create()
-
-      // console.log(searchResults)
+      new IssueCreator(searchResults, context).create()
+      // console.log(searchResults2)
 
       // const current_issue = context.payload.issue
 
