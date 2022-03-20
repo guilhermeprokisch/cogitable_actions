@@ -18,7 +18,7 @@ class IssueCreator {
     }
     const newIssue = await this.context.octokit.issues.create(
       this.context.repo({
-        title: 'Test',
+        title: 'Testo',
         body: ' '
       })
     )
