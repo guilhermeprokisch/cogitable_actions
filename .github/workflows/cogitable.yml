@@ -1,8 +1,11 @@
 name: Cogitable 
-"on":
+
+on:
   issues:
-    types:
-      - opened
+    types: [opened, edited, deleted]
+  issue_comment:
+    types: [created,edited, deleted]
+
 jobs:
   issuesOpened:
     runs-on: ubuntu-latest
