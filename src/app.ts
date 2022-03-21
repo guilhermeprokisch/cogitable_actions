@@ -59,7 +59,6 @@ export const app = (probot: Probot): void => {
       if (!doubleBracktsHandler.contains()) {
         return
       }
-    
       const bracketTerms = doubleBracktsHandler.extract()
       const searchResults = await new BrackTermsSearch(
         bracketTerms,
