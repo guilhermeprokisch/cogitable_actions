@@ -1,5 +1,4 @@
 
-import { parse } from 'path'
 import { SearchResult } from './types'
 
 export class BrackTermsSearch {
@@ -23,14 +22,13 @@ export class BrackTermsSearch {
   }
 
   private parseResult (term:string, rawResult:any): SearchResult {
-
     const parsedResult = {
       term: term,
       number: rawResult.data.items[0] ? rawResult.data.items[0].number : null,
       title: rawResult.data.items[0] ? rawResult.data.items[0].title : null
     }
 
-    if (parsedResult.term === parsedResult.title) {
+    if (parsedResult.term !== parsedResult.title) {
       parsedResult.title = null
       parsedResult.number = null
     }
