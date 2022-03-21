@@ -72,12 +72,6 @@ export const app = (probot: Probot): void => {
       const termsIssues = await new IssueCreator(search, context).create()
       const currentIssue = await new CurrentIssueGetter(context).get()
       await new CitedOnHandler(termsIssues, currentIssue, context).handle()
-
-      // const current_issue = context.payload.issue
-      // const issueComment = context.issue({
-      //   body: 'Thanks for opening this issue!'
-      // })
-      // await context.octokit.issues.createComment(issueComment)
     }
   )
 }
