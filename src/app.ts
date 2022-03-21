@@ -19,7 +19,7 @@ class IssueCreator {
 
     const newIssue = await this.context.octokit.rest.issues.create(
       this.context.repo({
-        title: 'Testo',
+        title: result.term,
         body: ' '
       })
     )
@@ -47,7 +47,6 @@ export const app = (probot: Probot): void => {
         return
       }
 
-  
       // ts-ingore due a issue with protobot types
       // @ts-ignore
       const body = context.payload.comment // @ts-ignore
@@ -65,9 +64,7 @@ export const app = (probot: Probot): void => {
         context
       ).search()
 
-            
-      const x = await new IssueCreator(searchResults, context).create()
-      console.log(x)
+      await new IssueCreator(searchResults, context).create()
       // console.log(searchResults2)
 
       // const current_issue = context.payload.issue
