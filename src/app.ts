@@ -20,16 +20,17 @@ class CitedOnHandler {
   id: number
   private currentIssue: any
 
-  constructor (private terms: SearchResult[], private context: any) {
+  constructor (private terms: SearchResult[], currentIssue: any, private context: any) {
     this.terms = terms
     this.context = context
-    this.id = context.payload.comment // @ts-ignore
-      ? context.payload.comment.id
-      : context.payload.issue.id
-    this.currentIssue = new CurrentIssueGetter(context).get()
+    this.currentIssue = currentIssue
+    this.id = this.context.payload.comment // @ts-ignore
+      ? this.context.payload.comment.id
+      : this.context.payload.issue.id
   }
 
   async commentCited (term: SearchResult) {
+
     await this.context.octokit.issues.createComment(
       this.context.repo({
         issue_number: term.number,
@@ -69,7 +70,8 @@ export const app = (probot: Probot): void => {
       const bracketTerms = doubleBracktsHandler.extract()
       const search = await new BrackTermsSearch(bracketTerms, context).search()
       const termsIssues = await new IssueCreator(search, context).create()
-      await new CitedOnHandler(termsIssues, context).handle()
+      const currentIssue = await new CurrentIssueGetter(context).get()
+      await new CitedOnHandler(termsIssues, currentIssue, context).handle()
 
       // const current_issue = context.payload.issue
       // const issueComment = context.issue({
