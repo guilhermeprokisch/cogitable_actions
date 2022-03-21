@@ -102284,7 +102284,9 @@ class CurrentIssueGetter {
     }
     get() {
         return app_awaiter(this, void 0, void 0, function* () {
-            return this.context.name === 'issues' ? this.context.payload.issue : yield this.context.github.issues.get(this.context.repo({ issue_number: this.context.issue().number })).data;
+            const x = this.context.name === 'issues' ? this.context.payload.issue : yield this.context.github.issues.get(this.context.repo({ issue_number: this.context.issue().number }));
+            console.log(x);
+            return x;
         });
     }
 }
