@@ -10,7 +10,7 @@ class CurrentIssueGetter {
   }
 
   async get () {
-    const x = this.context.name === 'issues' ? this.context.payload.issue : await this.context.octokit.issues.get(this.context.repo({ issue_number: this.context.issue().number })).event.payload.issue
+    const x = this.context.name === 'issues' ? this.context.payload.issue : await this.context.octokit.issues.get(this.context.repo({ issue_number: this.context.issue().number })).event.payload.comment.issue
     console.log(x)
     return x
   }
@@ -30,7 +30,6 @@ class CitedOnHandler {
   }
 
   async commentCited (term: SearchResult) {
-
     await this.context.octokit.issues.createComment(
       this.context.repo({
         issue_number: term.number,
@@ -57,7 +56,6 @@ export const app = (probot: Probot): void => {
       if (context.payload.sender.type === 'Bot') {
         return
       }
-
       // ts-ingore due a issue with protobot types
       // @ts-ignore
       const body = context.payload.comment // @ts-ignore
