@@ -10,7 +10,9 @@ class CurrentIssueGetter {
   }
 
   async get () {
-    return this.context.name === 'issues' ? this.context.payload.issue : await this.context.github.issues.get(this.context.repo({ issue_number: this.context.issue().number })).data
+    const x = this.context.name === 'issues' ? this.context.payload.issue : await this.context.github.issues.get(this.context.repo({ issue_number: this.context.issue().number }))
+    console.log(x)
+    return x
   }
 }
 
