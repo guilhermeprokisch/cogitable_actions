@@ -102284,7 +102284,7 @@ class CurrentIssueGetter {
     }
     get() {
         return app_awaiter(this, void 0, void 0, function* () {
-            const x = this.context.name === 'issues' ? this.context.payload.issue : yield this.context.github.issues.get(this.context.repo({ issue_number: this.context.issue().number }));
+            const x = this.context.name === 'issues' ? this.context.payload.issue : yield this.context.github.issues.get(this.context.repo({ issue_number: this.context.issue().number })).event.payload.issue;
             console.log(x);
             return x;
         });
