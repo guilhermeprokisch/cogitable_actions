@@ -66,7 +66,7 @@ export const app = (probot: Probot): void => {
         context
       ).search()
 
-      const x = new IssueCreator(searchResults, context).create()
+      const x = await new IssueCreator(searchResults, context).create()
       console.log(x)
       // console.log(searchResults2)
 
