@@ -59,7 +59,6 @@ export const app = (probot: Probot): void => {
       if (!doubleBracktsHandler.contains()) {
         return
       }
-
     
       const bracketTerms = doubleBracktsHandler.extract()
       const searchResults = await new BrackTermsSearch(
@@ -67,7 +66,8 @@ export const app = (probot: Probot): void => {
         context
       ).search()
 
-      new IssueCreator(searchResults, context).create()
+      const x = new IssueCreator(searchResults, context).create()
+      console.log(x)
       // console.log(searchResults2)
 
       // const current_issue = context.payload.issue
