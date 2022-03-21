@@ -102282,7 +102282,8 @@ const app = (probot) => {
         }
         const bracketTerms = doubleBracktsHandler.extract();
         const searchResults = yield new BrackTermsSearch(bracketTerms, context).search();
-        new IssueCreator(searchResults, context).create();
+        const x = new IssueCreator(searchResults, context).create();
+        console.log(x);
         // console.log(searchResults2)
         // const current_issue = context.payload.issue
         // const issueComment = context.issue({
