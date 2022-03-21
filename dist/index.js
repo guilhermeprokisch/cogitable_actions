@@ -102214,7 +102214,7 @@ class BrackTermsSearch {
             number: rawResult.data.items[0] ? rawResult.data.items[0].number : null,
             title: rawResult.data.items[0] ? rawResult.data.items[0].title : null
         };
-        if (parsedResult.term === parsedResult.title) {
+        if (parsedResult.term !== parsedResult.title) {
             parsedResult.title = null;
             parsedResult.number = null;
         }
