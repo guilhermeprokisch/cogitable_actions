@@ -102251,7 +102251,7 @@ class IssueCreator {
                 return result;
             }
             const newIssue = yield this.context.octokit.rest.issues.create(this.context.repo({
-                title: 'Testo',
+                title: result.term,
                 body: ' '
             }));
             result.number = newIssue.data.number;
@@ -102287,8 +102287,7 @@ const app = (probot) => {
         }
         const bracketTerms = doubleBracktsHandler.extract();
         const searchResults = yield new BrackTermsSearch(bracketTerms, context).search();
-        const x = yield new IssueCreator(searchResults, context).create();
-        console.log(x);
+        yield new IssueCreator(searchResults, context).create();
         // console.log(searchResults2)
         // const current_issue = context.payload.issue
         // const issueComment = context.issue({
