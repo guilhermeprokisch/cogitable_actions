@@ -102340,11 +102340,6 @@ const app = (probot) => {
         const termsIssues = yield new IssueCreator(search, context).create();
         const currentIssue = yield new CurrentIssueGetter(context).get();
         yield new CitedOnHandler(termsIssues, currentIssue, context).handle();
-        // const current_issue = context.payload.issue
-        // const issueComment = context.issue({
-        //   body: 'Thanks for opening this issue!'
-        // })
-        // await context.octokit.issues.createComment(issueComment)
     }));
 };
 
