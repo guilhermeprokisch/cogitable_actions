@@ -102228,8 +102228,8 @@ class BrackTermsSearch {
     }
 }
 
-;// CONCATENATED MODULE: ./src/app.ts
-var app_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+;// CONCATENATED MODULE: ./src/issuecreator.ts
+var issuecreator_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -102238,15 +102238,13 @@ var app_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argu
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-
-
 class IssueCreator {
     constructor(searchResults, context) {
         this.searchResults = searchResults;
         this.context = context;
     }
     createNewIssue(result) {
-        return app_awaiter(this, void 0, void 0, function* () {
+        return issuecreator_awaiter(this, void 0, void 0, function* () {
             if (result.number) {
                 return result;
             }
@@ -102260,8 +102258,58 @@ class IssueCreator {
         });
     }
     create() {
+        return issuecreator_awaiter(this, void 0, void 0, function* () {
+            return yield Promise.all(this.searchResults.map((result) => issuecreator_awaiter(this, void 0, void 0, function* () { return yield this.createNewIssue(result); })));
+        });
+    }
+}
+
+;// CONCATENATED MODULE: ./src/app.ts
+var app_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+class CurrentIssueGetter {
+    constructor(context) {
+        this.context = context;
+        this.context = context;
+    }
+    get() {
         return app_awaiter(this, void 0, void 0, function* () {
-            return yield Promise.all(this.searchResults.map((result) => app_awaiter(this, void 0, void 0, function* () { return yield this.createNewIssue(result); })));
+            return this.context.name === 'issues' ? this.context.payload.issue : yield this.context.github.issues.get(this.context.repo({ issue_number: this.context.issue().number })).data;
+        });
+    }
+}
+class CitedOnHandler {
+    constructor(terms, context) {
+        this.terms = terms;
+        this.context = context;
+        this.terms = terms;
+        this.context = context;
+        this.id = context.payload.comment // @ts-ignore
+            ? context.payload.comment.id
+            : context.payload.issue.id;
+        this.currentIssue = new CurrentIssueGetter(context).get();
+    }
+    commentCited(term) {
+        return app_awaiter(this, void 0, void 0, function* () {
+            yield this.context.octokit.issues.createComment(this.context.repo({
+                issue_number: term.number,
+                body: `Mentioned in [${this.currentIssue.title}](${this.currentIssue.number}#issuecomment-${this.id})  \n > `
+            }));
+        });
+    }
+    handle() {
+        return app_awaiter(this, void 0, void 0, function* () {
+            Promise.all(this.terms.map((term) => app_awaiter(this, void 0, void 0, function* () { return yield this.commentCited(term); })));
         });
     }
 }
@@ -102286,9 +102334,9 @@ const app = (probot) => {
             return;
         }
         const bracketTerms = doubleBracktsHandler.extract();
-        const searchResults = yield new BrackTermsSearch(bracketTerms, context).search();
-        yield new IssueCreator(searchResults, context).create();
-        // console.log(searchResults2)
+        const search = yield new BrackTermsSearch(bracketTerms, context).search();
+        const termsIssues = yield new IssueCreator(search, context).create();
+        yield new CitedOnHandler(termsIssues, context).handle();
         // const current_issue = context.payload.issue
         // const issueComment = context.issue({
         //   body: 'Thanks for opening this issue!'
