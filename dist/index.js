@@ -102201,7 +102201,7 @@ class BrackTermsSearch {
     searchTerm(term) {
         return __awaiter(this, void 0, void 0, function* () {
             const results = yield this.context.octokit.search.issuesAndPullRequests(this.context.repo({
-                q: term,
+                q: term + `repo:${this.context.repo().owner}/${this.context.repo().repo}`,
                 order: 'asc',
                 per_page: 1
             }));
