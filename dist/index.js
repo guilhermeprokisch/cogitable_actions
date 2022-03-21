@@ -102209,11 +102209,16 @@ class BrackTermsSearch {
         });
     }
     parseResult(term, rawResult) {
-        return {
+        const parsedResult = {
             term: term,
             number: rawResult.data.items[0] ? rawResult.data.items[0].number : null,
             title: rawResult.data.items[0] ? rawResult.data.items[0].title : null
         };
+        if (parsedResult.term === parsedResult.title) {
+            parsedResult.title = null;
+            parsedResult.number = null;
+        }
+        return parsedResult;
     }
     search() {
         return __awaiter(this, void 0, void 0, function* () {
