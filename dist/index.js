@@ -102291,15 +102291,15 @@ class CurrentIssueGetter {
     }
 }
 class CitedOnHandler {
-    constructor(terms, context) {
+    constructor(terms, currentIssue, context) {
         this.terms = terms;
         this.context = context;
         this.terms = terms;
         this.context = context;
-        this.id = context.payload.comment // @ts-ignore
-            ? context.payload.comment.id
-            : context.payload.issue.id;
-        this.currentIssue = new CurrentIssueGetter(context).get();
+        this.currentIssue = currentIssue;
+        this.id = this.context.payload.comment // @ts-ignore
+            ? this.context.payload.comment.id
+            : this.context.payload.issue.id;
     }
     commentCited(term) {
         return app_awaiter(this, void 0, void 0, function* () {
@@ -102338,7 +102338,8 @@ const app = (probot) => {
         const bracketTerms = doubleBracktsHandler.extract();
         const search = yield new BrackTermsSearch(bracketTerms, context).search();
         const termsIssues = yield new IssueCreator(search, context).create();
-        yield new CitedOnHandler(termsIssues, context).handle();
+        const currentIssue = yield new CurrentIssueGetter(context).get();
+        yield new CitedOnHandler(termsIssues, currentIssue, context).handle();
         // const current_issue = context.payload.issue
         // const issueComment = context.issue({
         //   body: 'Thanks for opening this issue!'
