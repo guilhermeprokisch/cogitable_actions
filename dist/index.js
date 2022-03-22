@@ -102282,6 +102282,7 @@ class CitedOnHandler {
         this.terms = terms;
         this.context = context;
         this.terms = terms;
+        console.log(terms);
         this.context = context;
         this.id = this.context.payload.comment // @ts-ignore
             ? this.context.payload.comment.id
