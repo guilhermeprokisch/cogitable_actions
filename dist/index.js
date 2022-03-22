@@ -102277,26 +102277,12 @@ var app_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argu
 
 
 
-class CurrentIssueGetter {
-    constructor(context) {
-        this.context = context;
-        this.context = context;
-    }
-    get() {
-        return app_awaiter(this, void 0, void 0, function* () {
-            const x = this.context.payload.issue;
-            console.log(x);
-            return x;
-        });
-    }
-}
 class CitedOnHandler {
-    constructor(terms, currentIssue, context) {
+    constructor(terms, context) {
         this.terms = terms;
         this.context = context;
         this.terms = terms;
         this.context = context;
-        this.currentIssue = currentIssue;
         this.id = this.context.payload.comment // @ts-ignore
             ? this.context.payload.comment.id
             : this.context.payload.issue.id;
@@ -102305,7 +102291,7 @@ class CitedOnHandler {
         return app_awaiter(this, void 0, void 0, function* () {
             yield this.context.octokit.issues.createComment(this.context.repo({
                 issue_number: term.number,
-                body: `Mentioned in [${this.currentIssue.title}](${this.currentIssue.number}#issuecomment-${this.id})  \n > `
+                body: `Mentioned in [${this.context.payload.issue.title}](${this.context.payload.issue.number}#issuecomment-${this.id})  \n > `
             }));
         });
     }
@@ -102338,8 +102324,7 @@ const app = (probot) => {
         const bracketTerms = doubleBracktsHandler.extract();
         const search = yield new BrackTermsSearch(bracketTerms, context).search();
         const termsIssues = yield new IssueCreator(search, context).create();
-        const currentIssue = yield new CurrentIssueGetter(context).get();
-        yield new CitedOnHandler(termsIssues, currentIssue, context).handle();
+        yield new CitedOnHandler(termsIssues, context).handle();
     }));
 };
 
