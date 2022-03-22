@@ -6,7 +6,6 @@ import { SearchResult } from './types'
 
 class CitedOnHandler {
   id: number
-  private currentIssue: any
 
   constructor (private terms: SearchResult[], private context: any) {
     this.terms = terms
@@ -20,7 +19,7 @@ class CitedOnHandler {
     await this.context.octokit.issues.createComment(
       this.context.repo({
         issue_number: term.number,
-        body: `Mentioned in [${this.currentIssue.title}](${this.context.payload.issue.number}#issuecomment-${this.id})  \n > `
+        body: `Mentioned in [${this.context.issue.title}](${this.context.payload.issue.number}#issuecomment-${this.id})  \n > `
       })
     )
   }
