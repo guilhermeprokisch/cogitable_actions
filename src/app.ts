@@ -35,7 +35,6 @@ export const app = (probot: Probot): void => {
     [
       'issues.opened',
       'issues.edited',
-      'issue_comment',
       'issue_comment.created',
       'issue_comment.edited'
     ],
