@@ -4,26 +4,13 @@ import { BrackTermsSearch } from './bracktermssearch'
 import { IssueCreator } from './issuecreator'
 import { SearchResult } from './types'
 
-class CurrentIssueGetter {
-  constructor (private context: any) {
-    this.context = context
-  }
-
-  async get () {
-    const x = this.context.payload.issue
-    console.log(x)
-    return x
-  }
-}
-
 class CitedOnHandler {
   id: number
   private currentIssue: any
 
-  constructor (private terms: SearchResult[], currentIssue: any, private context: any) {
+  constructor (private terms: SearchResult[], private context: any) {
     this.terms = terms
     this.context = context
-    this.currentIssue = currentIssue
     this.id = this.context.payload.comment // @ts-ignore
       ? this.context.payload.comment.id
       : this.context.payload.issue.id
@@ -33,7 +20,7 @@ class CitedOnHandler {
     await this.context.octokit.issues.createComment(
       this.context.repo({
         issue_number: term.number,
-        body: `Mentioned in [${this.currentIssue.title}](${this.currentIssue.number}#issuecomment-${this.id})  \n > `
+        body: `Mentioned in [${this.currentIssue.title}](${this.context.payload.issue.number}#issuecomment-${this.id})  \n > `
       })
     )
   }
@@ -68,8 +55,7 @@ export const app = (probot: Probot): void => {
       const bracketTerms = doubleBracktsHandler.extract()
       const search = await new BrackTermsSearch(bracketTerms, context).search()
       const termsIssues = await new IssueCreator(search, context).create()
-      const currentIssue = await new CurrentIssueGetter(context).get()
-      await new CitedOnHandler(termsIssues, currentIssue, context).handle()
+      await new CitedOnHandler(termsIssues, context).handle()
     }
   )
 }
