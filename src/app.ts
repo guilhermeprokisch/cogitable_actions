@@ -10,7 +10,7 @@ class CurrentIssueGetter {
   }
 
   async get () {
-    const x = this.context.name === 'issues' ? this.context.payload.issue : await this.context.octokit.issues.get(this.context.repo({ issue_number: this.context.issue().number }))
+    const x = this.context.name === 'issues' ? this.context.payload.issue : await this.context.octokit.rest.issues.get(this.context.repo({ issue_number: this.context.issue().number }))
     console.log(x)
     return x
   }
