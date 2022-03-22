@@ -16,6 +16,7 @@ class CitedOnHandler {
   }
 
   async commentCited (term: SearchResult) {
+    console.log('ok')
     await this.context.octokit.issues.createComment(
       this.context.repo({
         issue_number: term.number,
