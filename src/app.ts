@@ -19,7 +19,7 @@ class CitedOnHandler {
     await this.context.octokit.issues.createComment(
       this.context.repo({
         issue_number: term.number,
-        body: `Mentioned in [${this.context.issue.title}](${this.context.payload.issue.number}#issuecomment-${this.id})  \n > `
+        body: `Mentioned in [${this.context.payload.issue.title}](${this.context.payload.issue.number}#issuecomment-${this.id})  \n > `
       })
     )
   }
