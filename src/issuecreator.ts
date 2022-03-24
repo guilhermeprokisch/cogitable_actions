@@ -22,6 +22,7 @@ export class IssueCreator {
     )
     result.number = newIssue.data.number
     result.title = newIssue.data.title
+    result.url = newIssue.data.url
     return result
   }
 

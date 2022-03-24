@@ -12,8 +12,8 @@ export class ReplaceDoubleBracketsForMarkdownLinks {
     this.terms.forEach(
       term =>
         (this.body = this.body.replace(
-          `[[${term.title}]`,
-          `[${term.title}](${term.number})`
+          `[[${term.title}]]`,
+          `[${term.title}](${term.url})`
         ))
     )
     return this.body

@@ -25,12 +25,14 @@ export class BrackTermsSearch {
     const parsedResult = {
       term: term,
       number: rawResult.data.items[0] ? rawResult.data.items[0].number : null,
-      title: rawResult.data.items[0] ? rawResult.data.items[0].title : null
+      title: rawResult.data.items[0] ? rawResult.data.items[0].title : null,
+      url: rawResult.data.items[0] ? rawResult.data.items[0].url : null
     }
 
     if (parsedResult.term !== parsedResult.title) {
       parsedResult.title = null
       parsedResult.number = null
+      parsedResult.url = null
     }
 
     return parsedResult
