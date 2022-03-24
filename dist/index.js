@@ -102281,7 +102281,6 @@ class CitedOnHandler {
         this.body = body;
         this.terms = terms;
         this.body = body;
-        console.log(terms);
         this.context = context;
         this.id = this.context.payload.comment // @ts-ignore
             ? this.context.payload.comment.id
@@ -102316,6 +102315,41 @@ var app_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argu
 
 
 
+class ReplaceDoubleBracketsForMarkdownLinks {
+    constructor(body, terms) {
+        this.body = body;
+        this.terms = terms;
+    }
+    replace() {
+        this.terms.forEach(term => (this.body = this.body.replace(`[[${term.title}]`, `[${term.title}](${term.number})`)));
+        return this.body;
+    }
+}
+class UpdateBody {
+    constructor(body, context) {
+        this.body = body;
+        this.context = context;
+    }
+    update() {
+        return app_awaiter(this, void 0, void 0, function* () {
+            const [updateFunction, key, value] = this.context.name === 'issues'
+                ? [
+                    this.context.octokit.issues.update,
+                    'issue_number',
+                    this.context.payload.issue.number
+                ]
+                : [
+                    this.context.octokit.issues.updateComment,
+                    'comment_id',
+                    this.context.payload.comment.id
+                ];
+            let updateObj;
+            updateObj[key] = key;
+            updateObj.body = value;
+            yield updateFunction(this.context.repo(updateObj));
+        });
+    }
+}
 const app = (probot) => {
     probot.on([
         'issues.opened',
@@ -102338,7 +102372,9 @@ const app = (probot) => {
         const bracketTerms = doubleBracktsHandler.extract();
         const search = yield new BrackTermsSearch(bracketTerms, context).search();
         const termsIssues = yield new IssueCreator(search, context).create();
-        yield new CitedOnHandler(termsIssues, context, body).handle();
+        const newBody = new ReplaceDoubleBracketsForMarkdownLinks(body, termsIssues).replace();
+        yield new UpdateBody(newBody, context).update();
+        yield new CitedOnHandler(termsIssues, context, newBody).handle();
     }));
 };
 
