@@ -1,4 +1,4 @@
-import { Probot, Context } from 'probot'
+import { Probot } from 'probot'
 import { DoubleBracktsHandler } from './utils/doubleBrackts'
 import { BrackTermsSearch } from './bracktermssearch'
 import { IssueCreator } from './issuecreator'
@@ -47,7 +47,7 @@ class UpdateBody {
             this.context.payload.comment.id
           ]
 
-    let updateObj: any
+    const updateObj: any = {}
     updateObj[key] = key
     updateObj.body = value
 
