@@ -102344,8 +102344,8 @@ class UpdateBody {
                     this.context.payload.comment.id
                 ];
             const updateObj = {};
-            updateObj[key] = key;
-            updateObj.body = value;
+            updateObj[key] = value;
+            updateObj.body = this.body;
             yield updateFunction(this.context.repo(updateObj));
         });
     }
