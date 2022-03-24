@@ -48,8 +48,8 @@ class UpdateBody {
           ]
 
     const updateObj: any = {}
-    updateObj[key] = key
-    updateObj.body = value
+    updateObj[key] = value
+    updateObj.body = this.body
 
     await updateFunction(this.context.repo(updateObj))
   }
