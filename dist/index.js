@@ -102293,7 +102293,7 @@ class CitedOnHandler {
         return citedonhandler_awaiter(this, void 0, void 0, function* () {
             yield this.context.octokit.issues.createComment(this.context.repo({
                 issue_number: term.number,
-                body: `Mentioned in [${this.context.payload.issue.title}](${this.context.payload.issue.number}#issuecomment-${this.id})  \n > ${this.body}`
+                body: ` ######  Mentioned in [${this.context.payload.issue.title}](${this.context.payload.issue.number}#issuecomment-${this.id})  \n > ${this.body}`
             }));
         });
     }
@@ -102320,7 +102320,9 @@ class ReplaceDoubleBracketsForMarkdownLinks {
         this.terms = terms;
     }
     replace() {
-        this.terms.forEach(term => (this.body = this.body.replace(`[[${term.title}]]`, `[${term.title}](${term.url})`)));
+        this.terms.forEach(term => (this.body = this.body.replace(`[[${term.title}]]`, `[${term.title}](${term.url
+            .replace('/repos', '')
+            .replace('api.', '')})`)));
         return this.body;
     }
 }
