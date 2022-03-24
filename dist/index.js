@@ -102293,7 +102293,7 @@ class CitedOnHandler {
         return citedonhandler_awaiter(this, void 0, void 0, function* () {
             yield this.context.octokit.issues.createComment(this.context.repo({
                 issue_number: term.number,
-                body: ` ######  Mentioned in [${this.context.payload.issue.title}](${this.context.payload.issue.number}#issuecomment-${this.id})  \n > ${this.body}`
+                body: ` ######  Mention in [${this.context.payload.issue.title} #${this.context.payload.issue.number}](${this.context.payload.issue.number}#issuecomment-${this.id})  \n > ${this.body}`
             }));
         });
     }
