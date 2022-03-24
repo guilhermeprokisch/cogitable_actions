@@ -1,8 +1,59 @@
-import { Probot } from 'probot'
+import { Probot, Context } from 'probot'
 import { DoubleBracktsHandler } from './utils/doubleBrackts'
 import { BrackTermsSearch } from './bracktermssearch'
 import { IssueCreator } from './issuecreator'
 import { CitedOnHandler } from './citedonhandler'
+import { SearchResult } from './types'
+
+class ReplaceDoubleBracketsForMarkdownLinks {
+  body: string
+  terms: SearchResult[]
+  constructor (body: string, terms: SearchResult[]) {
+    this.body = body
+    this.terms = terms
+  }
+
+  replace () {
+    this.terms.forEach(
+      term =>
+        (this.body = this.body.replace(
+          `[[${term.title}]`,
+          `[${term.title}](${term.number})`
+        ))
+    )
+    return this.body
+  }
+}
+
+class UpdateBody {
+  body: string
+  context: any
+  constructor (body: string, context: any) {
+    this.body = body
+    this.context = context
+  }
+
+  async update () {
+    const [updateFunction, key, value] =
+      this.context.name === 'issues'
+        ? [
+            this.context.octokit.issues.update,
+            'issue_number',
+            this.context.payload.issue.number
+          ]
+        : [
+            this.context.octokit.issues.updateComment,
+            'comment_id',
+            this.context.payload.comment.id
+          ]
+
+    let updateObj: any
+    updateObj[key] = key
+    updateObj.body = value
+
+    await updateFunction(this.context.repo(updateObj))
+  }
+}
 
 export const app = (probot: Probot): void => {
   probot.on(
@@ -28,7 +79,12 @@ export const app = (probot: Probot): void => {
       const bracketTerms = doubleBracktsHandler.extract()
       const search = await new BrackTermsSearch(bracketTerms, context).search()
       const termsIssues = await new IssueCreator(search, context).create()
-      await new CitedOnHandler(termsIssues, context, body).handle()
+      const newBody = new ReplaceDoubleBracketsForMarkdownLinks(
+        body,
+        termsIssues
+      ).replace()
+      await new UpdateBody(newBody, context).update()
+      await new CitedOnHandler(termsIssues, context, newBody).handle()
     }
   )
 }
