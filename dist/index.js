@@ -102306,7 +102306,6 @@ const app = (probot) => {
     probot.on([
         'issues.opened',
         'issues.edited',
-        'issue_comment',
         'issue_comment.created',
         'issue_comment.edited'
     ], (context) => app_awaiter(void 0, void 0, void 0, function* () {
