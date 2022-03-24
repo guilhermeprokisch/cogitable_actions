@@ -3,8 +3,9 @@ import { SearchResult } from './types'
 export class CitedOnHandler {
   id: number
 
-  constructor (private terms: SearchResult[], private context: any) {
+  constructor (private terms: SearchResult[], private context: any, private body: string) {
     this.terms = terms
+    this.body = body
     console.log(terms)
     this.context = context
     this.id = this.context.payload.comment // @ts-ignore
@@ -16,7 +17,7 @@ export class CitedOnHandler {
     await this.context.octokit.issues.createComment(
       this.context.repo({
         issue_number: term.number,
-        body: `Mentioned in [${this.context.payload.issue.title}](${this.context.payload.issue.number}#issuecomment-${this.id})  \n > `
+        body: `Mentioned in [${this.context.payload.issue.title}](${this.context.payload.issue.number}#issuecomment-${this.id})  \n > ${this.body}`
       })
     )
   }

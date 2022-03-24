@@ -28,7 +28,7 @@ export const app = (probot: Probot): void => {
       const bracketTerms = doubleBracktsHandler.extract()
       const search = await new BrackTermsSearch(bracketTerms, context).search()
       const termsIssues = await new IssueCreator(search, context).create()
-      await new CitedOnHandler(termsIssues, context).handle()
+      await new CitedOnHandler(termsIssues, context, body).handle()
     }
   )
 }
