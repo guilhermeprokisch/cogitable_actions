@@ -102212,11 +102212,13 @@ class BrackTermsSearch {
         const parsedResult = {
             term: term,
             number: rawResult.data.items[0] ? rawResult.data.items[0].number : null,
-            title: rawResult.data.items[0] ? rawResult.data.items[0].title : null
+            title: rawResult.data.items[0] ? rawResult.data.items[0].title : null,
+            url: rawResult.data.items[0] ? rawResult.data.items[0].url : null
         };
         if (parsedResult.term !== parsedResult.title) {
             parsedResult.title = null;
             parsedResult.number = null;
+            parsedResult.url = null;
         }
         return parsedResult;
     }
@@ -102254,6 +102256,7 @@ class IssueCreator {
             }));
             result.number = newIssue.data.number;
             result.title = newIssue.data.title;
+            result.url = newIssue.data.url;
             return result;
         });
     }
@@ -102301,6 +102304,52 @@ class CitedOnHandler {
     }
 }
 
+;// CONCATENATED MODULE: ./src/replacebrackets.ts
+var replacebrackets_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+class ReplaceDoubleBracketsForMarkdownLinks {
+    constructor(body, terms) {
+        this.body = body;
+        this.terms = terms;
+    }
+    replace() {
+        this.terms.forEach(term => (this.body = this.body.replace(`[[${term.title}]]`, `[${term.title}](${term.url})`)));
+        return this.body;
+    }
+}
+class UpdateBody {
+    constructor(body, context) {
+        this.body = body;
+        this.context = context;
+    }
+    update() {
+        return replacebrackets_awaiter(this, void 0, void 0, function* () {
+            const [updateFunction, keyName, value] = this.context.name === 'issues'
+                ? [
+                    this.context.octokit.issues.update,
+                    'issue_number',
+                    this.context.payload.issue.number
+                ]
+                : [
+                    this.context.octokit.issues.updateComment,
+                    'comment_id',
+                    this.context.payload.comment.id
+                ];
+            const updateObj = {};
+            updateObj[keyName] = value;
+            updateObj.body = this.body;
+            yield updateFunction(this.context.repo(updateObj));
+        });
+    }
+}
+
 ;// CONCATENATED MODULE: ./src/app.ts
 var app_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -102315,41 +102364,7 @@ var app_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argu
 
 
 
-class ReplaceDoubleBracketsForMarkdownLinks {
-    constructor(body, terms) {
-        this.body = body;
-        this.terms = terms;
-    }
-    replace() {
-        this.terms.forEach(term => (this.body = this.body.replace(`[[${term.title}]`, `[${term.title}](${term.number})`)));
-        return this.body;
-    }
-}
-class UpdateBody {
-    constructor(body, context) {
-        this.body = body;
-        this.context = context;
-    }
-    update() {
-        return app_awaiter(this, void 0, void 0, function* () {
-            const [updateFunction, key, value] = this.context.name === 'issues'
-                ? [
-                    this.context.octokit.issues.update,
-                    'issue_number',
-                    this.context.payload.issue.number
-                ]
-                : [
-                    this.context.octokit.issues.updateComment,
-                    'comment_id',
-                    this.context.payload.comment.id
-                ];
-            const updateObj = {};
-            updateObj[key] = value;
-            updateObj.body = this.body;
-            yield updateFunction(this.context.repo(updateObj));
-        });
-    }
-}
+
 const app = (probot) => {
     probot.on([
         'issues.opened',
