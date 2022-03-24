@@ -102343,7 +102343,7 @@ class UpdateBody {
                     'comment_id',
                     this.context.payload.comment.id
                 ];
-            let updateObj;
+            const updateObj = {};
             updateObj[key] = key;
             updateObj.body = value;
             yield updateFunction(this.context.repo(updateObj));
