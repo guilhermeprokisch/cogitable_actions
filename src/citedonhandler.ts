@@ -6,7 +6,6 @@ export class CitedOnHandler {
   constructor (private terms: SearchResult[], private context: any, private body: string) {
     this.terms = terms
     this.body = body
-    console.log(terms)
     this.context = context
     this.id = this.context.payload.comment // @ts-ignore
       ? this.context.payload.comment.id
