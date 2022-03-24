@@ -102264,6 +102264,44 @@ class IssueCreator {
     }
 }
 
+;// CONCATENATED MODULE: ./src/citedonhandler.ts
+var citedonhandler_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+class CitedOnHandler {
+    constructor(terms, context, body) {
+        this.terms = terms;
+        this.context = context;
+        this.body = body;
+        this.terms = terms;
+        this.body = body;
+        console.log(terms);
+        this.context = context;
+        this.id = this.context.payload.comment // @ts-ignore
+            ? this.context.payload.comment.id
+            : this.context.payload.issue.id;
+    }
+    commentCited(term) {
+        return citedonhandler_awaiter(this, void 0, void 0, function* () {
+            yield this.context.octokit.issues.createComment(this.context.repo({
+                issue_number: term.number,
+                body: `Mentioned in [${this.context.payload.issue.title}](${this.context.payload.issue.number}#issuecomment-${this.id})  \n > ${this.body}`
+            }));
+        });
+    }
+    handle() {
+        return citedonhandler_awaiter(this, void 0, void 0, function* () {
+            Promise.all(this.terms.map((term) => citedonhandler_awaiter(this, void 0, void 0, function* () { return yield this.commentCited(term); })));
+        });
+    }
+}
+
 ;// CONCATENATED MODULE: ./src/app.ts
 var app_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -102277,31 +102315,7 @@ var app_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argu
 
 
 
-class CitedOnHandler {
-    constructor(terms, context) {
-        this.terms = terms;
-        this.context = context;
-        this.terms = terms;
-        console.log(terms);
-        this.context = context;
-        this.id = this.context.payload.comment // @ts-ignore
-            ? this.context.payload.comment.id
-            : this.context.payload.issue.id;
-    }
-    commentCited(term) {
-        return app_awaiter(this, void 0, void 0, function* () {
-            yield this.context.octokit.issues.createComment(this.context.repo({
-                issue_number: term.number,
-                body: `Mentioned in [${this.context.payload.issue.title}](${this.context.payload.issue.number}#issuecomment-${this.id})  \n > `
-            }));
-        });
-    }
-    handle() {
-        return app_awaiter(this, void 0, void 0, function* () {
-            Promise.all(this.terms.map((term) => app_awaiter(this, void 0, void 0, function* () { return yield this.commentCited(term); })));
-        });
-    }
-}
+
 const app = (probot) => {
     probot.on([
         'issues.opened',
@@ -102324,7 +102338,7 @@ const app = (probot) => {
         const bracketTerms = doubleBracktsHandler.extract();
         const search = yield new BrackTermsSearch(bracketTerms, context).search();
         const termsIssues = yield new IssueCreator(search, context).create();
-        yield new CitedOnHandler(termsIssues, context).handle();
+        yield new CitedOnHandler(termsIssues, context, body).handle();
     }));
 };
 
