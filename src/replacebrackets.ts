@@ -13,7 +13,9 @@ export class ReplaceDoubleBracketsForMarkdownLinks {
       term =>
         (this.body = this.body.replace(
           `[[${term.title}]]`,
-          `[${term.title}](${term.url})`
+          `[${term.title}](${term.url
+            .replace('/repos', '')
+            .replace('api.', '')})`
         ))
     )
     return this.body
